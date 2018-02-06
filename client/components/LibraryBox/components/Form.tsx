@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import {emptyItem} from '../consts'
 import {ADD_ITEM, EDIT_ITEM} from '../actions'
 import { IBook, IGlobalState } from '../model/model';
+import { addItemBook, editItemBook } from '../actions'
 
-
-let counter = (function() {
-	var count: number = 2;
-	return  function () {
-		return ++count;
-	}
-})();
+// let counter = (function() {
+// 	var count: number = 2;
+// 	return  function () {
+// 		return ++count;
+// 	}
+// })();
 
 interface IProps {
     addBook?: (item: IBook) => void,
@@ -63,10 +63,10 @@ class Form extends React.Component <IProps, IState> {
         if (this.isValidForm(form) ) {
 
             this.props.addBook(form);
-             this.setState({ 
-                 form: emptyItem, 
-                 item: null
-             });
+            this.setState({ 
+                form: emptyItem, 
+                item: null
+            });
         }
     }
 
@@ -127,20 +127,10 @@ function mapStateToProps(state: IGlobalState) {
 function mapDispatchToProps(dispatch) : any {
     return {
         addBook: function (item) {
-            item.id = counter();
-            const action = {
-                type: ADD_ITEM,
-                payload: item
-            };
-            dispatch(action);
+            addItemBook (item)(dispatch);
         },
         editBook: function (item) {
-
-            const action = {
-                type: EDIT_ITEM,
-                payload: item
-            };
-            dispatch(action);
+            editItemBook(item)(dispatch);
         }    
     }
 }

@@ -2,7 +2,7 @@ import * as React from 'react'
 import Row from './Row'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import {SELECT_ITEM, DELETE_ITEM} from '../actions'
+import {SELECT_ITEM, DELETE_ITEM, selectItemBook, deleteItemBook } from '../actions'
 import { IBook, IGlobalState } from '../model/model';
 
 interface IProps {
@@ -54,20 +54,10 @@ function mapDispatchToProps(dispatch: Dispatch<any>) {
 
     return { 
         selectBook: (item: IBook) => {
-
-            const action = {
-                type: SELECT_ITEM,
-                payload: item
-            };
-            dispatch(action);
+            selectItemBook(item)(dispatch);
         },
         deleteBook: (item: IBook) => {
-            
-            const action = {
-                type: DELETE_ITEM,
-                payload: item
-            };
-            dispatch(action);
+            deleteItemBook(item)(dispatch);
         }
     };
 }
